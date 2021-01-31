@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="px-4 py-3 mt-2 text-lg font-medium text-black bg-white rounded-md ">
+    <div>{{ question.question_text }}</>
+    </div>
+
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+    <form class="mt-2 text-base font-normal" action="{% url 'polls:vote' question.id %}" method="post">
+        {% csrf_token %}
+        {% for choice in question.choice_set.all %}
+        <input class="mb-1 cursor-pointer " type="radio" name="choice" id="choice{{ forloop.counter }}"
+            value="{{ choice.id }}" />
+        <label class="mb-1" for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br />
+        {% endfor %}
+        <input class="px-6 py-2 mt-3 font-bold text-white bg-green-500 rounded cursor-pointer hover:bg-green-800"
+            type="submit" value="Vote" />
+    </form>
+
+</div>
+
+{% endblock %}

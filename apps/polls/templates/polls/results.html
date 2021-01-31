@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="px-4 py-3 mt-2 text-lg font-medium text-black bg-white rounded-md ">
+    <div>{{ question.question_text }}</>
+    </div>
+
+
+
+    <div class="my-2 text-base font-normal">
+        <ul>
+            {% for choice in question.choice_set.all %}
+            <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+            {% endfor %}
+        </ul>
+
+    </div>
+    <div class="mt-5 ">
+        <a class="px-6 py-2 font-bold text-white bg-green-500 rounded cursor-pointer hover:bg-green-800"
+            href="{% url 'polls:detail' question.id %}">Vote again?</a>
+    </div>
+</div>
+
+{% endblock %}
